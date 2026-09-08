@@ -34,7 +34,7 @@ function populateFilters() {
 }
 function filteredRecords() {
   const search = $('#searchInput').value.toLowerCase().trim(); const fts = $('#ftsFilter').value; const form = $('#formFilter').value;
-  return records.filter((record) => { const searchable = [record.labCode, record.sampleId, record.acquiredOn, record.town, record.neighborhood, record.sampleForm, record.suspected, record.soldAs, record.ftirSubstances, record.ftsResult].map((value) => clean(value, '')).join(' ').toLowerCase(); return (!search || searchable.includes(search)) && (!fts || clean(record.ftsResult) === fts) && (!form || clean(record.sampleForm) === form); });
+  return records.filter((record) => { const searchable = [record.labCode, record.acquiredOn, record.town, record.neighborhood, record.sampleForm, record.suspected, record.soldAs, record.ftirSubstances, record.ftsResult].map((value) => clean(value, '')).join(' ').toLowerCase(); return (!search || searchable.includes(search)) && (!fts || clean(record.ftsResult) === fts) && (!form || clean(record.sampleForm) === form); });
 }
 function renderRecords() {
   const filtered = filteredRecords(); const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize)); page = Math.min(page, totalPages); const visible = filtered.slice((page - 1) * pageSize, page * pageSize);
@@ -44,6 +44,6 @@ function renderRecords() {
 }
 function renderError() { document.querySelector('main').replaceWith($('#errorTemplate').content.cloneNode(true)); }
 async function init() {
-  try { const response = await fetch('/api/records'); if (!response.ok) throw new Error('Database unavailable'); records = (await response.json()).records; $('#refreshNote').textContent = `${records.length.toLocaleString()} live records loaded`; renderSummary(); renderRankings(); populateFilters(); renderRecords(); ['#searchInput', '#ftsFilter', '#formFilter'].forEach((selector) => $(selector).addEventListener('input', () => { page = 1; renderRecords(); })); $('#previousPage').addEventListener('click', () => { page -= 1; renderRecords(); }); $('#nextPage').addEventListener('click', () => { page += 1; renderRecords(); }); } catch (error) { renderError(); }
+  try { const response = await fetch('data/records.json'); if (!response.ok) throw new Error('Data unavailable'); records = (await response.json()).records; $('#refreshNote').textContent = `${records.length.toLocaleString()} published records loaded`; renderSummary(); renderRankings(); populateFilters(); renderRecords(); ['#searchInput', '#ftsFilter', '#formFilter'].forEach((selector) => $(selector).addEventListener('input', () => { page = 1; renderRecords(); })); $('#previousPage').addEventListener('click', () => { page -= 1; renderRecords(); }); $('#nextPage').addEventListener('click', () => { page += 1; renderRecords(); }); } catch (error) { renderError(); }
 }
 init();

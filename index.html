@@ -17,7 +17,7 @@
         <p class="kicker">Drug-checking intelligence / local view</p>
         <h1>See the signals<br />inside the <em>samples.</em></h1>
         <p class="hero-copy">A live look at laboratory and test-strip findings across your StreetCheck records. Built to find patterns, not identify people.</p>
-        <div class="scope"><span>Record-level explorer</span><span>Contact fields excluded</span><span>Updates from local PostgreSQL</span></div>
+        <div class="scope"><span>Record-level explorer</span><span>Contact fields excluded</span><span>Published data snapshot</span></div>
       </section>
       <section class="wrap section" aria-labelledby="snapshot-title">
         <div class="section-head"><div><p class="kicker">Snapshot</p><h2 id="snapshot-title">The dataset at a glance</h2></div><p id="refreshNote" class="muted">Loading local results…</p></div>
@@ -40,7 +40,7 @@
       </section>
     </main>
     <footer class="wrap"><span>STREETCHECK / LOCAL FINDINGS</span><span>For harm-reduction insight, not individual identification.</span></footer>
-    <template id="errorTemplate"><section class="error wrap"><p class="kicker">Connection unavailable</p><h2>Start the local server, then try again.</h2><p>Run <code>.\.venv\Scripts\python.exe server.py</code> from this project folder. The dashboard reads only its defined, non-contact analysis fields.</p></section></template>
+    <template id="errorTemplate"><section class="error wrap"><p class="kicker">Data unavailable</p><h2>The published data snapshot could not be loaded.</h2><p>Refresh the page, or confirm that <code>data/records.json</code> is present in the site deployment.</p></section></template>
     <script src="app.js"></script>
   </body>
 </html>

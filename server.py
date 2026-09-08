@@ -23,7 +23,6 @@ SELECT COALESCE(
   json_agg(
     json_build_object(
       'labCode', "Laboratory Code",
-      'sampleId', "Sample ID",
       'acquiredOn', "Date Sample Acquired",
       'town', "Town",
       'neighborhood', "Neighborhood",
