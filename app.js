@@ -7,6 +7,11 @@ const escapeHTML = (value) => clean(value).replace(/[&<>"']/g, (character) => ({
 const countBy = (items, getValue) => items.reduce((map, item) => { const value = clean(getValue(item)); map.set(value, (map.get(value) || 0) + 1); return map; }, new Map());
 const ordered = (map) => [...map.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 const percent = (count, total) => total ? ((count / total) * 100).toFixed(1) : '0.0';
+const themeToggle = $('#themeToggle');
+function applyTheme(theme) { document.documentElement.dataset.theme = theme; const dark = theme === 'dark'; themeToggle.querySelector('.theme-label').textContent = dark ? 'Light' : 'Dark'; themeToggle.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`); themeToggle.title = themeToggle.getAttribute('aria-label'); }
+const savedTheme = localStorage.getItem('streetcheck-theme');
+applyTheme(savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeToggle.addEventListener('click', () => { const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('streetcheck-theme', next); applyTheme(next); });
 
 function renderSummary() {
   const fts = countBy(records, (record) => record.ftsResult);
