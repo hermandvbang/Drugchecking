@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A local, privacy-conscious view of StreetCheck drug-checking results." />
+    <title>StreetCheck | Findings dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <nav class="nav wrap"><a class="brand" href="#top"><span class="mark">S</span>StreetCheck</a><span class="local-status"><i></i> Local database connection</span></nav>
+      <section class="hero wrap" id="top">
+        <p class="kicker">Drug-checking intelligence / local view</p>
+        <h1>See the signals<br />inside the <em>samples.</em></h1>
+        <p class="hero-copy">A live look at laboratory and test-strip findings across your StreetCheck records. Built to find patterns, not identify people.</p>
+        <div class="scope"><span>Record-level explorer</span><span>Contact fields excluded</span><span>Updates from local PostgreSQL</span></div>
+      </section>
+      <section class="wrap section" aria-labelledby="snapshot-title">
+        <div class="section-head"><div><p class="kicker">Snapshot</p><h2 id="snapshot-title">The dataset at a glance</h2></div><p id="refreshNote" class="muted">Loading local results…</p></div>
+        <div class="metrics" id="metrics"></div>
+      </section>
+      <section class="wrap section grid-two">
+        <article class="panel feature-panel"><p class="kicker">Signal / FTIR</p><h2>Fentanyl and xylazine appear together often.</h2><p class="feature-copy" id="coOccurrenceCopy">Loading result combinations…</p><div class="signal-bars" id="signalBars"></div><p class="fine-print">Counts reflect FTIR substance descriptions and may include multi-substance samples.</p></article>
+        <article class="panel"><div class="panel-head"><div><p class="kicker">Test-strip signal</p><h2>Overall FTS at 1 mL</h2></div><span class="badge" id="ftsTested">— tested</span></div><div class="stacked-bar" id="ftsBar" aria-label="FTS result distribution"></div><div class="legend" id="ftsLegend"></div></article>
+      </section>
+      <section class="wrap section grid-two">
+        <article class="panel"><div class="panel-head"><div><p class="kicker">Most frequent</p><h2>FTIR substance results</h2></div><span class="badge">Top 8</span></div><ol class="rank-list" id="substanceList"></ol></article>
+        <article class="panel"><div class="panel-head"><div><p class="kicker">Physical form</p><h2>What was checked</h2></div><span class="badge">All records</span></div><div class="form-chart" id="formChart"></div></article>
+      </section>
+      <section class="wrap section explorer" aria-labelledby="explorer-title">
+        <div class="section-head"><div><p class="kicker">Record explorer</p><h2 id="explorer-title">Find a sample or pattern</h2></div><p class="muted">Personal/contact details and narrative notes are not included.</p></div>
+        <div class="filters"><label class="search"><span>Search</span><input id="searchInput" type="search" placeholder="Lab code, substance, town, form…" /></label><label><span>FTS result</span><select id="ftsFilter"><option value="">All results</option></select></label><label><span>Sample form</span><select id="formFilter"><option value="">All forms</option></select></label></div>
+        <p class="results-count" id="resultsCount"></p>
+        <div class="table-scroll"><table><thead><tr><th>Lab code</th><th>Acquired</th><th>Form</th><th>Suspected / sold as</th><th>FTIR substances</th><th>FTS @ 1 mL</th><th>Area</th></tr></thead><tbody id="recordRows"></tbody></table></div>
+        <div class="pager"><button type="button" id="previousPage">← Previous</button><span id="pageLabel"></span><button type="button" id="nextPage">Next →</button></div>
+      </section>
+    </main>
+    <footer class="wrap"><span>STREETCHECK / LOCAL FINDINGS</span><span>For harm-reduction insight, not individual identification.</span></footer>
+    <template id="errorTemplate"><section class="error wrap"><p class="kicker">Connection unavailable</p><h2>Start the local server, then try again.</h2><p>Run <code>.\.venv\Scripts\python.exe server.py</code> from this project folder. The dashboard reads only its defined, non-contact analysis fields.</p></section></template>
+    <script src="app.js"></script>
+  </body>
+</html>
